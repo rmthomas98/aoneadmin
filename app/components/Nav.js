@@ -43,22 +43,6 @@ const Nav = () => {
       </div>
 
       <Divider mt="15px" mb="0px" />
-      <Spacer />
-      <div style={{ display: "flex", paddingLeft: 16, paddingRight: 16 }}>
-        <div style={{ width: "100%" }}>
-          <Tag type="lite">Name</Tag>
-        </div>
-        <div style={{ width: "100%" }}>
-          <Tag type="lite">$ Amount</Tag>
-        </div>
-        <div style={{ width: "100%" }}>
-          <Tag type="lite">$ Paid</Tag>
-        </div>
-        <div style={{ width: "100%" }}>
-          <Tag type="lite">Balance</Tag>
-        </div>
-        <div style={{ minWidth: 57 }}></div>
-      </div>
     </>
   );
 };

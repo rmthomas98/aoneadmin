@@ -13,7 +13,7 @@ import { FilePlus, Calendar } from "@geist-ui/icons";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useState } from "react";
-import { Router, useRouter } from "next/router";
+import {useRouter} from 'next/router';
 
 const Nav = () => {
   const { setVisible, bindings } = useModal();
@@ -21,7 +21,7 @@ const Nav = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const router = useRouter();
+  const router = useRouter()
 
   const {
     register,
@@ -44,10 +44,13 @@ const Nav = () => {
 
     // check for response
     if (response.status === 200) {
-      setIsLoading(false);
-      setVisible(false);
-      setToast({ text: "Customer balance added!", type: "success" });
-      return router.replace(router.asPath);
+      setTimeout(() => {
+        setIsLoading(false);
+        reset();
+        setVisible(false);
+        setToast({ text: "Customer balance added!", type: "success" });
+        router.replace(router.asPath)
+      }, 3000)
     } else {
       setIsLoading(false);
       setToast({

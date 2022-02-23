@@ -20,7 +20,7 @@ const handler = async (req, res) => {
       email: email ? email : null,
       date: date,
       fullyPaid: initial === total ? true : false,
-      payments: [{ amount: Number(initial), date: date }],
+      payments: initial ? [{ amount: Number(initial), date: date }] : null,
     };
 
     // insert document into mongodb

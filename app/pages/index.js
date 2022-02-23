@@ -4,21 +4,21 @@ import { Spacer } from "@geist-ui/core";
 import clientPromise from "../lib/mongodb";
 
 const Home = ({ balances }) => {
-  console.log(balances);
+
   return (
     <>
       <div style={{ padding: 16 }}>
         <div style={{ maxWidth: 1000, margin: "auto" }}>
-          <Nav />
+          <Nav  />
           <Spacer />
-          <PaymentCards balances={balances} />
+          <PaymentCards balances={balances}/>
         </div>
       </div>
     </>
   );
 };
 
-export async function getServerSideProps() {
+export const getServerSideProps = async () => {
   // connect to mongodb
   const client = await clientPromise;
   const db = client.db();
@@ -28,8 +28,6 @@ export async function getServerSideProps() {
   let balances = await collection.find({}).toArray();
   console.log(balances);
   balances = JSON.parse(JSON.stringify(balances));
-
-  console.log(balances);
 
   return { props: { balances: balances } };
 }

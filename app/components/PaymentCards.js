@@ -1,11 +1,14 @@
-import { Table, Button } from "@geist-ui/core";
+import { Table, Button, useModal, Modal, Card, Tag, Divider, Text } from "@geist-ui/core";
 import { useEffect, useState } from "react";
+import {format} from 'date-fns'
 
 const PaymentCards = ({ balances }) => {
   const [data, setData] = useState();
+  const [index, setIndex] = useState(null);
+  const {setVisible, bindings} = useModal();
 
   useEffect(() => {
-    const balanceList = balances.map((element, index) => {
+    const balanceList = balances.reverse().map((element, index) => {
       return {
         name: element.name,
         total: `$${element.total.toLocaleString("en-us", {
@@ -20,10 +23,19 @@ const PaymentCards = ({ balances }) => {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })}`,
+        index: index,
+        fullyPaid: element.fullyPaid,
+        payments: element.payments,
+        rawPaid: element.paid,
+        rawTotal: element.total,
+        rawBalance: element.balance,
+        date: element.date,
+        email: element.email,
+        phone: element.phone
       };
     });
     setData(balanceList);
-  }, []);
+  }, [balances]);
 
   const renderAction = () => {
     return (
@@ -35,13 +47,14 @@ const PaymentCards = ({ balances }) => {
 
   const handleRowClick = (data) => {
     console.log(data);
+    setIndex(data.index)
+    setVisible(true)
   };
 
   return (
     <>
       <Table
         data={data}
-        hover={false}
         style={{ textTransform: "capitalize" }}
         onRow={handleRowClick}
       >
@@ -55,6 +68,26 @@ const PaymentCards = ({ balances }) => {
           width={100}
         ></Table.Column>
       </Table>
+      <Modal {...bindings}>
+        <Modal.Title>{index || index === 0 ? balances[index].name : ''}</Modal.Title>
+        <Modal.Subtitle>Balance Overview</Modal.Subtitle>
+        <Modal.Content>
+        <Text h4 margin={0}>Recent Payments</Text>
+          {balances[index]?.payments.length ? balances[index].payments.map(element => {
+            return (
+              <>
+              <Divider />
+              <div style={{display: 'flex', justifyContent: 'space-around'}}>
+
+                <Tag type="lite">{format(new Date(element.date), 'MMM dd, yyyy')}</Tag>
+                <Tag invert type="success">${element.amount.toLocaleString('en-us', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</Tag>
+              </div>
+                </>
+            )
+          }) : ''}
+        </Modal.Content>
+        <Modal.Action passive onClick={() => setVisible(false)}>Close</Modal.Action>
+      </Modal>
     </>
   );
 };

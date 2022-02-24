@@ -3,12 +3,10 @@ import {
   Button,
   useModal,
   Modal,
-  Card,
   Tag,
   Divider,
   Text,
   Progress,
-  Capacity,
   Spacer,
   Badge,
 } from "@geist-ui/core";
@@ -22,11 +20,13 @@ import {
   Clock,
   Calendar,
 } from "@geist-ui/icons";
+import PaymentModal from "./PaymentModal";
+import { PlusCircle } from '@geist-ui/icons'
 
 const PaymentCards = ({ balances }) => {
   const [data, setData] = useState();
   const [index, setIndex] = useState(null);
-  const [paymentData, setPaymentData] = useState(null);
+  const [paymentVisible, setPaymentVisible] = useState(false);
   const { setVisible, bindings } = useModal();
 
   useEffect(() => {
@@ -66,6 +66,17 @@ const PaymentCards = ({ balances }) => {
     setIndex(data.index);
     setVisible(true);
   };
+
+  if (!data) return '';
+
+  if (!data.length)
+    return (
+      <div style={{ display: "flex", justifyContent: "center", marginTop: 10 }}>
+        <Tag type="success" invert>
+          There are no outstanding balances at this time.
+        </Tag>
+      </div>
+    );
 
   return (
     <>
@@ -262,11 +273,67 @@ const PaymentCards = ({ balances }) => {
           ) : (
             ""
           )}
+          <Spacer />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Text h5 margin={0}>
+              Recent Payments
+            </Text>
+            <Button type="secondary" auto scale={0.5} icon={<PlusCircle />} onClick={() => setPaymentVisible(true)}>
+              Add
+            </Button>
+          </div>
+          <Divider />
+          {balances[index]?.payments ? (
+            balances[index].payments.reverse().map((element) => {
+              return (
+                <>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      paddingRight: 4,
+                      paddingLeft: 4,
+                    }}
+                  >
+                    <Text small margin={0} type="secondary">
+                      {format(new Date(element.date), "MMM dd, yyyy")}
+                    </Text>
+                    <Badge type="success">
+                      $
+                      {element.amount.toLocaleString("en-us", {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}
+                    </Badge>
+                  </div>
+                  <Divider />
+                </>
+              );
+            })
+          ) : (
+            <Text type="error" style={{ textAlign: "center" }}>
+              No Recent Payments
+            </Text>
+          )}
         </Modal.Content>
         <Modal.Action passive onClick={() => setVisible(false)}>
           Close
         </Modal.Action>
+        <Modal.Action>Clear Balance</Modal.Action>
       </Modal>
+      <PaymentModal
+        paymentVisible={paymentVisible}
+        setPaymentVisible={setPaymentVisible}
+        magic={balances[index]?.magic}
+        balance={balances[index]?.balance}
+      />
     </>
   );
 };

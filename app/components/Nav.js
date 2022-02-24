@@ -80,7 +80,7 @@ const Nav = () => {
       });
     if (errors.initial?.type === "required") {
       return setToast({
-        text: "Please enter the amount of the total bill.",
+        text: "Please enter the amount of the initial payment.",
         type: "error",
       });
     }

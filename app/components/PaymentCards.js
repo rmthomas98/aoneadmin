@@ -7,9 +7,21 @@ import {
   Tag,
   Divider,
   Text,
+  Progress,
+  Capacity,
+  Spacer,
+  Badge,
 } from "@geist-ui/core";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
+import {
+  Mail,
+  Phone,
+  DollarSign,
+  CheckCircle,
+  Clock,
+  Calendar,
+} from "@geist-ui/icons";
 
 const PaymentCards = ({ balances }) => {
   const [data, setData] = useState();
@@ -36,12 +48,6 @@ const PaymentCards = ({ balances }) => {
         index: index,
         fullyPaid: element.fullyPaid,
         payments: element.payments,
-        rawPaid: element.paid,
-        rawTotal: element.total,
-        rawBalance: element.balance,
-        date: element.date,
-        email: element.email,
-        phone: element.phone,
       };
     });
     setData(balanceList);
@@ -78,12 +84,185 @@ const PaymentCards = ({ balances }) => {
           width={100}
         ></Table.Column>
       </Table>
-      <Modal {...bindings}>
+      <Modal {...bindings} disableBackdropClick>
         <Modal.Title>
           {index || index === 0 ? balances[index].name : ""}
         </Modal.Title>
-        <Modal.Subtitle>Balance Overview</Modal.Subtitle>
-        <Modal.Content></Modal.Content>
+        <Modal.Subtitle>Oustanding Balance</Modal.Subtitle>
+        <Modal.Content pt="5px">
+          <Text h1 style={{ textAlign: "center" }}>
+            $
+            {balances[index]?.balance.toLocaleString("en-us", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
+          </Text>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Tag type="lite">
+              Paid $
+              {balances[index]?.paid.toLocaleString("en-us", {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 2,
+              })}{" "}
+              (
+              {((balances[index]?.paid / balances[index]?.total) * 100).toFixed(
+                2
+              )}
+              %)
+            </Tag>
+          </div>
+          <Spacer />
+          <Progress
+            width="100%"
+            scale={0.5}
+            type="success"
+            value={(
+              (balances[index]?.paid / balances[index]?.total) *
+              100
+            ).toFixed(0)}
+          />
+          <Spacer />
+          <Text h5>Customer Overview</Text>
+          <Divider />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              paddingRight: 4,
+              paddingLeft: 4,
+            }}
+          >
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <DollarSign color="0070f3" size={16} />
+              <Text margin={0} type="secondary" ml="5px">
+                Bill Amount
+              </Text>
+            </span>
+            <Text margin={0}>
+              $
+              {balances[index]?.total.toLocaleString("en-us", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
+            </Text>
+          </div>
+          <Divider />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              paddingRight: 4,
+              paddingLeft: 4,
+            }}
+          >
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <CheckCircle color="0070f3" size={16} />
+              <Text margin={0} type="secondary" ml="5px">
+                Amount Paid
+              </Text>
+            </span>
+            <Text margin={0}>
+              $
+              {balances[index]?.paid.toLocaleString("en-us", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
+            </Text>
+          </div>
+          <Divider />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              paddingRight: 4,
+              paddingLeft: 4,
+            }}
+          >
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <Clock color="0070f3" size={16} />
+              <Text margin={0} type="secondary" ml="5px">
+                Balance
+              </Text>
+            </span>
+            <Text margin={0}>
+              $
+              {balances[index]?.balance.toLocaleString("en-us", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
+            </Text>
+          </div>
+          <Divider />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              paddingRight: 4,
+              paddingLeft: 4,
+            }}
+          >
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <Calendar color="0070f3" size={16} />
+              <Text margin={0} type="secondary" ml="5px">
+                Date
+              </Text>
+            </span>
+            <Text margin={0}>
+              {balances[index]?.date
+                ? format(new Date(balances[index].date), "MMM dd, yyyy")
+                : ""}
+            </Text>
+          </div>
+          <Divider />
+          {balances[index]?.email ? (
+            <>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  paddingLeft: 4,
+                  paddingRight: 4,
+                }}
+              >
+                <span style={{ display: "flex", alignItems: "center" }}>
+                  <Mail color="0070f3" size={16} />
+                  <Text margin={0} type="secondary" ml="5px">
+                    Email
+                  </Text>
+                </span>
+                <Text margin={0}>{balances[index].email}</Text>
+              </div>
+              <Divider />
+            </>
+          ) : (
+            ""
+          )}
+          {balances[index]?.phone ? (
+            <>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  paddingLeft: 4,
+                  paddingRight: 4,
+                }}
+              >
+                <span style={{ display: "flex", alignItems: "center" }}>
+                  <Phone color="0070f3" size={16} />
+                  <Text margin={0} type="secondary" ml="5px">
+                    Phone
+                  </Text>
+                </span>
+                <Text margin={0}>{balances[index].phone}</Text>
+              </div>
+              <Divider />
+            </>
+          ) : (
+            ""
+          )}
+        </Modal.Content>
         <Modal.Action passive onClick={() => setVisible(false)}>
           Close
         </Modal.Action>

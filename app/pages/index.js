@@ -33,12 +33,12 @@ const Home = ({ balances }) => {
   }, [balances]);
 
   return (
-    <>
+    <body style={{overflowX: 'unset'}}>
     <Head>
       <title>A-1 Carpet & Tile</title>
     </Head>
-      <div style={{ padding: 16, animation: 'fadeIn forwards 0.75s ease', opacity: 0 }}>
-        <div style={{ maxWidth: 1000, margin: "auto" }}>
+      <div style={{ padding: 16, animation: 'fadeIn forwards 0.75s ease', opacity: 0}}>
+        <div style={{ maxWidth: 1000, margin: "auto", height: '100%' }}>
           <Nav setSearch={setSearch} />
           <Spacer />
           <Card py="0px">
@@ -66,7 +66,7 @@ const Home = ({ balances }) => {
           <PaymentCards balances={data} />
         </div>
       </div>
-    </>
+    </body>
   );
 };
 

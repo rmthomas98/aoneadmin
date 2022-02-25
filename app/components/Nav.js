@@ -99,6 +99,8 @@ const Nav = ({setSearch}) => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          position: 'sticky',
+          top: 0
         }}
       >
         <Text h3 margin={0} style={{ fontWeight: 800 }}>

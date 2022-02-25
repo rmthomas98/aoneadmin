@@ -104,7 +104,7 @@ const PaymentCards = ({ balances }) => {
 
   if (!data || !balances) return "";
 
-  if (data === "no results")
+  if (balances === "no results")
     return (
       <div style={{ display: "flex", justifyContent: "center", marginTop: 10  }}>
         <Tag type="error">No results found</Tag>

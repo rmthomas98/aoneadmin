@@ -21,7 +21,7 @@ import {
   Calendar,
 } from "@geist-ui/icons";
 import PaymentModal from "./PaymentModal";
-import { PlusCircle } from '@geist-ui/icons'
+import { PlusCircle } from "@geist-ui/icons";
 
 const PaymentCards = ({ balances }) => {
   const [data, setData] = useState();
@@ -67,12 +67,12 @@ const PaymentCards = ({ balances }) => {
     setVisible(true);
   };
 
-  if (!data) return '';
+  if (!data) return "";
 
   if (!data.length)
     return (
       <div style={{ display: "flex", justifyContent: "center", marginTop: 10 }}>
-        <Tag type="success" invert>
+        <Tag type="lite" scale={1.3}>
           There are no outstanding balances at this time.
         </Tag>
       </div>
@@ -97,7 +97,7 @@ const PaymentCards = ({ balances }) => {
       </Table>
       <Modal {...bindings} disableBackdropClick>
         <Modal.Title>
-          {index || index === 0 ? balances[index].name : ""}
+          {index || index === 0 ? balances[index]?.name : ""}
         </Modal.Title>
         <Modal.Subtitle>Oustanding Balance</Modal.Subtitle>
         <Modal.Content pt="5px">
@@ -284,7 +284,13 @@ const PaymentCards = ({ balances }) => {
             <Text h5 margin={0}>
               Recent Payments
             </Text>
-            <Button type="secondary" auto scale={0.5} icon={<PlusCircle />} onClick={() => setPaymentVisible(true)}>
+            <Button
+              type="secondary"
+              auto
+              scale={0.5}
+              icon={<PlusCircle />}
+              onClick={() => setPaymentVisible(true)}
+            >
               Add
             </Button>
           </div>
@@ -333,6 +339,7 @@ const PaymentCards = ({ balances }) => {
         setPaymentVisible={setPaymentVisible}
         magic={balances[index]?.magic}
         balance={balances[index]?.balance}
+        setVisible={setVisible}
       />
     </>
   );

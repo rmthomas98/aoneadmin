@@ -2,16 +2,20 @@ import Nav from "../components/Nav";
 import PaymentCards from "../components/PaymentCards";
 import { Spacer } from "@geist-ui/core";
 import clientPromise from "../lib/mongodb";
+import { useEffect, useState } from "react";
 
 const Home = ({ balances }) => {
+  const [customerSearch, setCustomerSearch] = useState();
+
+  useEffect(() => {}, []);
 
   return (
     <>
       <div style={{ padding: 16 }}>
         <div style={{ maxWidth: 1000, margin: "auto" }}>
-          <Nav  />
+          <Nav />
           <Spacer />
-          <PaymentCards balances={balances}/>
+          <PaymentCards balances={balances} />
         </div>
       </div>
     </>
@@ -30,6 +34,6 @@ export const getServerSideProps = async () => {
   balances = JSON.parse(JSON.stringify(balances));
 
   return { props: { balances: balances } };
-}
+};
 
 export default Home;

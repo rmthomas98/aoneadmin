@@ -262,7 +262,7 @@ const PaymentCards = ({ balances }) => {
             </span>
             <Text margin={0}>
               {balances[index]?.date
-                ? format(new Date(balances[index].date), "MMM dd, yyyy")
+                ? format(new Date(balances[index].date.replace('-', '/')), "MMM dd, yyyy")
                 : ""}
             </Text>
           </div>
@@ -351,7 +351,7 @@ const PaymentCards = ({ balances }) => {
                     }}
                   >
                     <Text small margin={0} type="secondary">
-                      {format(new Date(element.date), "MMM dd, yyyy")}
+                      {format(new Date(element.date.replace('-', '/')), "MMM dd, yyyy")}
                     </Text>
                     <Badge type="success">
                       $

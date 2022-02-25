@@ -17,11 +17,10 @@ const handler = async (req, res) => {
       name: name,
       total: Number(total),
       paid: Number(initial),
-      balance: total - initial,
+      balance: Number(total) - Number(initial),
       phone: phone ? phone : null,
       email: email ? email : null,
       date: date,
-      fullyPaid: initial === total ? true : false,
       payments:
         initial && initial !== "0"
           ? [{ amount: Number(initial), date: date }]

@@ -9,13 +9,13 @@ import {
   Spacer,
   useToasts,
 } from "@geist-ui/core";
-import { FilePlus, Calendar } from "@geist-ui/icons";
+import { FilePlus, Calendar, Search } from "@geist-ui/icons";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-const Nav = () => {
+const Nav = ({setSearch}) => {
   const { setVisible, bindings } = useModal();
   const { setToast } = useToasts();
 
@@ -44,13 +44,11 @@ const Nav = () => {
 
     // check for response
     if (response.status === 200) {
-      setTimeout(() => {
         setIsLoading(false);
         reset();
         setVisible(false);
         setToast({ text: "Customer balance added!", type: "success" });
         router.replace(router.asPath);
-      }, 3000);
     } else {
       setIsLoading(false);
       setToast({
@@ -106,9 +104,8 @@ const Nav = () => {
         <Text h3 margin={0} style={{ fontWeight: 800 }}>
           A-1
         </Text>
-
         <div style={{ maxWidth: 500, width: "100%" }}>
-          <AutoComplete placeholder="Customer Name..." width="100%" />
+          <Input placeholder="Customer Name..." width="100%" icon={<Search />} onChange={(e) => setSearch(e.target.value)}/>
         </div>
         <Button
           type="secondary"
@@ -120,7 +117,6 @@ const Nav = () => {
           Add New
         </Button>
       </div>
-      <Divider mt="15px" mb="0px" />
       <Modal {...bindings} disableBackdropClick>
         <Modal.Title>Add Oustanding Balance</Modal.Title>
         <Modal.Content>

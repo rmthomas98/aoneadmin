@@ -13,12 +13,6 @@ const handler = async (req, res) => {
     // get user from mongodb using magic string
     const user = await collection.findOne({ magic: magic });
 
-    if (user.balance === Number(amount)) {
-      // delete balance from mongodb
-      await collection.remove({ magic: magic });
-      return res.status(200).send("balance deleted");
-    }
-
     // create the update object
     const updateBalance = {
       $set: {

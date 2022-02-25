@@ -38,6 +38,7 @@ const PaymentCards = ({ balances }) => {
   const router = useRouter();
 
   useEffect(() => {
+    setData();
     if (!balances) return;
     if (balances === "no results") return setData("no results");
     const balanceList = balances.reverse().map((element, index) => {

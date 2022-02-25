@@ -68,10 +68,12 @@ const PaymentCards = ({ balances }) => {
   const renderAction = (rowData, rowIndex, value) => {
     const startDate = new Date(rowIndex.date)
     const endDate = new Date();
+    const days = (intervalToDuration({start: startDate, end: endDate}).years * 365) + (intervalToDuration({start: startDate, end: endDate}).months * 30) + intervalToDuration({start: startDate, end: endDate}).days;
+    const type = days <= 30 ? 'default' : days <= 60 ? 'warning' : days > 60 && 'error';
 
     return (
-      <Badge scale={0.7}>
-        {(intervalToDuration({start: startDate, end: endDate}).years * 365) + (intervalToDuration({start: startDate, end: endDate}).months * 30) + intervalToDuration({start: startDate, end: endDate}).days} days
+      <Badge type={type} style={{fontWeight: 500}} scale={0.7}>
+        {days} days
       </Badge>
     );
   };

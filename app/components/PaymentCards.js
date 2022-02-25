@@ -44,15 +44,15 @@ const PaymentCards = ({ balances }) => {
     const balanceList = balances.reverse().map((element, index) => {
       return {
         name: element.name,
-        total: `$${element.total.toLocaleString("en-us", {
+        total: `$${element.total?.toLocaleString("en-us", {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })}`,
-        paid: `$${element.paid.toLocaleString("en-us", {
+        paid: `$${element.paid?.toLocaleString("en-us", {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })}`,
-        balance: `$${element.balance.toLocaleString("en-us", {
+        balance: `$${element.balance?.toLocaleString("en-us", {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })}`,
@@ -145,7 +145,7 @@ const PaymentCards = ({ balances }) => {
         <Modal.Content pt="5px">
           <Text h1 style={{ textAlign: "center" }}>
             $
-            {balances[index]?.balance.toLocaleString("en-us", {
+            {balances[index]?.balance?.toLocaleString("en-us", {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
             })}
@@ -153,7 +153,7 @@ const PaymentCards = ({ balances }) => {
           <div style={{ display: "flex", justifyContent: "center" }}>
             <Tag type="lite">
               Paid $
-              {balances[index]?.paid.toLocaleString("en-us", {
+              {balances[index]?.paid?.toLocaleString("en-us", {
                 maximumFractionDigits: 2,
                 minimumFractionDigits: 2,
               })}{" "}
@@ -193,7 +193,7 @@ const PaymentCards = ({ balances }) => {
             </span>
             <Text margin={0}>
               $
-              {balances[index]?.total.toLocaleString("en-us", {
+              {balances[index]?.total?.toLocaleString("en-us", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })}
@@ -216,7 +216,7 @@ const PaymentCards = ({ balances }) => {
             </span>
             <Text margin={0}>
               $
-              {balances[index]?.paid.toLocaleString("en-us", {
+              {balances[index]?.paid?.toLocaleString("en-us", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })}
@@ -239,7 +239,7 @@ const PaymentCards = ({ balances }) => {
             </span>
             <Text margin={0}>
               $
-              {balances[index]?.balance.toLocaleString("en-us", {
+              {balances[index]?.balance?.toLocaleString("en-us", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })}
@@ -262,7 +262,7 @@ const PaymentCards = ({ balances }) => {
             </span>
             <Text margin={0}>
               {balances[index]?.date
-                ? format(new Date(balances[index].date.replace('-', '/')), "MMM dd, yyyy")
+                ? format(new Date(balances[index]?.date.replace('-', '/')), "MMM dd, yyyy")
                 : ""}
             </Text>
           </div>
@@ -284,7 +284,7 @@ const PaymentCards = ({ balances }) => {
                     Email
                   </Text>
                 </span>
-                <Text margin={0}>{balances[index].email}</Text>
+                <Text margin={0}>{balances[index]?.email}</Text>
               </div>
               <Divider />
             </>
@@ -308,7 +308,7 @@ const PaymentCards = ({ balances }) => {
                     Phone
                   </Text>
                 </span>
-                <Text margin={0}>{balances[index].phone}</Text>
+                <Text margin={0}>{balances[index]?.phone}</Text>
               </div>
               <Divider />
             </>
@@ -351,11 +351,11 @@ const PaymentCards = ({ balances }) => {
                     }}
                   >
                     <Text small margin={0} type="secondary">
-                      {format(new Date(element.date.replace('-', '/')), "MMM dd, yyyy")}
+                      {format(new Date(element.date?.replace('-', '/')), "MMM dd, yyyy")}
                     </Text>
                     <Badge type="success">
                       $
-                      {element.amount.toLocaleString("en-us", {
+                      {element.amount?.toLocaleString("en-us", {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}

@@ -101,7 +101,7 @@ const PaymentCards = ({ balances }) => {
     }
   };
 
-  if (!data) return "";
+  if (!data || !balances) return "";
 
   if (data === "no results")
     return (

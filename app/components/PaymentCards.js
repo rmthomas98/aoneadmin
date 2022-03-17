@@ -62,7 +62,8 @@ const PaymentCards = ({ balances }) => {
         date: element.date
       };
     });
-    setData(balanceList);
+    const sortedBalanceList = balanceList.sort((a, b) => a.name.localeCompare(b.name));
+    setData(sortedBalanceList);
   }, [balances]);
 
   const renderAction = (rowData, rowIndex, value) => {

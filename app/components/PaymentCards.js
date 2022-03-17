@@ -66,6 +66,7 @@ const PaymentCards = ({ balances }) => {
     setData(sortedBalanceList);
   }, [balances]);
 
+  //render table
   const renderAction = (rowData, rowIndex, value) => {
     const startDate = new Date(rowIndex.date)
     const endDate = new Date();

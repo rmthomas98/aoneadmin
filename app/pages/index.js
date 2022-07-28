@@ -52,7 +52,7 @@ const Home = ({ balances }) => {
               <Text h2 margin={0}>
                 Total Outstanding Balance
               </Text>
-              <Text h1 margin={0} style={{color: '#79ffe1'}}>
+              <Text h1 margin={0}>
                 $
                 {totalOutstanding ?
                   totalOutstanding.toLocaleString("en-us", {

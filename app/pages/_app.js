@@ -3,7 +3,7 @@ import { useState } from "react";
 import '../styles/globals.css';
 
 const App = ({ Component, pageProps }) => {
-  const [themeType, setThemeType] = useState("light");
+  const [themeType, setThemeType] = useState("dark");
 
   return (
     <GeistProvider themeType={themeType}>
